@@ -1,0 +1,32 @@
+def report_header(func):
+    def wrapper(self):
+        print("------- REPORT HEADER -------")
+        func(self)
+        print("------- END OF REPORT -------")
+    return wrapper
+
+
+class Report:
+    template = "Simple Report"
+
+    def __init__(self, title, content):
+        self.title = title
+        self.content = content
+
+    @classmethod
+    def change_template(cls):
+        cls.template = "Student Performance Report"
+
+    def __str__(self):
+        return f"Template: {self.template}\nTitle: {self.title}\nContent: {self.content}"
+
+    @report_header
+    def show_report(self):
+        print(self)
+
+
+Report.change_template()
+
+r1 = Report("Python Project", "This is a beginner report generator.")
+
+r1.show_report()
